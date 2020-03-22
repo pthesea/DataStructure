@@ -11,6 +11,18 @@ public class Node implements LinkedList<Object> {
         this.previous = previous;
     }
 
+    public Node get(int index) {
+        Node current = this.getHead();
+        for (int i = 1; i <= index; i++) {
+            if (current.next != null) {
+                current = current.next;
+            } else {
+                return null;
+            }
+        }
+        return current;
+    }
+
     public void set(Object value) {
         this.value = value;
     }

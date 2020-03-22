@@ -36,5 +36,7 @@ public class LLMain {
         System.out.println("Removendo o nó com a mesma referência que o nó com valor 100 adicionado anteriormente.");
         novo.remove();
         head.print();
+
+        System.out.println("Exibindo o valor do 4º nó: " + novo.get(4).value);
     }
 }

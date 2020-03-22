@@ -1,8 +1,9 @@
 package LinkedList;
 
 public interface LinkedList<E> {
-    public abstract void set(E e);
+    public Node get(int index);
     public abstract E getHead();
+    public abstract void set(E e);
 
     public abstract E addNext(E e);
     public abstract E addPrevious(E e);
