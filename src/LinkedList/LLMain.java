@@ -2,41 +2,37 @@ package LinkedList;
 
 public class LLMain {
     public static void main(String[] args) {
-        Node head = new Node(0, null);
-        System.out.println("O valor da Head é: " + head.value);
-        head.print();
+        LinkedList<String> ll = new LinkedList<String>();
 
-        Node loop = head;
-        for (int i = 1; i <= 9; i++) {
-            loop.addNext(i);
-            head.print();
-            loop = loop.next;
-        }
-        System.out.println("Existem " + head.count() + " nós.");
-        head.print();
+        System.out.println("Empty List? " + ll.isEmpty());
+        ll.appendStart("head");
+        ll.print();
 
-        System.out.println("Adicionando um novo nó com o valor 100.");
-        Node novo = head.next.next.next.addNext(100);
+        ll.appendEnd("tail");
+        ll.print();
 
-        System.out.println("Existem " + novo.count() + " nós.");
-        head.print();
+        ll.appendAt(1, "middle");
+        ll.print();
 
-        loop = head;
-        for (int i = 0; i <= 9; i++) {
-            loop.addPrevious(i + 100);
-            loop = loop.previous;
-        }
-        System.out.println("Existem " + head.count() + " nós.");
-        head.print();
+        String removed = ll.removeAt(0);
+        System.out.println("Node removed: " + removed);
+        ll.print();
 
-        head = novo.getHead();
+        ll.appendEnd("new end");
+        ll.print();
 
-        System.out.println("O novo valor da Head é: " + head.value);
+        ll.clear();
+        ll.print();
 
-        System.out.println("Removendo o nó com a mesma referência que o nó com valor 100 adicionado anteriormente.");
-        novo.remove();
-        head.print();
+        ll.appendEnd("grape");
+        ll.appendEnd("apple");
+        ll.appendEnd("mango");
+        ll.appendEnd("avocado");
+        ll.appendEnd("banana");
+        ll.print();
 
-        System.out.println("Exibindo o valor do 4º nó: " + novo.get(4).value);
+        ll.removeIfHas("o");
+        ll.print();
+
     }
 }
