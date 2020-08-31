@@ -90,13 +90,13 @@ public class LinkedList<String> implements LinkedListProtocol<String> {
             return;
         }
 
-        List<String> removed = new ArrayList<>();
+        int count = 0;
         Node<String> current = this.head;
         Node<String> before = this.head;
         for (int i = 0; i < this.size; i++) {
             String str = current.getValue();
             if (str.toString().contains(value.toString())) {
-                removed.add(str);
+                count++;
                 if (current.equals(this.head)) {
                     this.head = this.head.getNext();
                     before = this.head;
@@ -109,7 +109,7 @@ public class LinkedList<String> implements LinkedListProtocol<String> {
                 current = current.getNext();
             }
         }
-        size = size - removed.size();
+        size = size - count;
     }
 
 
