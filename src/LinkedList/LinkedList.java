@@ -1,10 +1,7 @@
 package LinkedList;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class LinkedList<String> implements LinkedListProtocol<String> {
-    private Node<String> head;
+public class LinkedList<E> implements LinkedListProtocol<E> {
+    private Node<E> head;
     private int size;
 
     public LinkedList() {
@@ -12,90 +9,119 @@ public class LinkedList<String> implements LinkedListProtocol<String> {
         this.size = 0;
     }
 
-    public void appendStart(String value) {
-        Node<String> fresh = new Node<>(value, null);
+    public void appendFirst(E value) {
+        Node<E> fresh = new Node<>(value, null);
         if (head != null) {
             fresh.setNext(this.head);
         }
         this.head = fresh;
-        size++;
+        this.size++;
     }
 
-    public void appendAt(int index, String value) {
+    public void appendAt(int index, E value) {
         if (index == 0) {
-            this.appendStart(value);
+            this.appendFirst(value);
             return;
         } else if (index == this.size) {
-            this.appendEnd(value);
+            this.appendLast(value);
             return;
-        } else if (index < 0 || index > size) {
+        } else if (index < 0 || index > this.size) {
             System.out.println("Index out of bounds.");
             return;
         }
 
-        Node<String> fresh = new Node<>(value, null);
-        Node<String> current = this.head;
+        Node<E> fresh = new Node<>(value, null);
+        Node<E> current = this.head;
         for(int i = 0; i < index - 1; i++) {
             current = current.getNext();
         }
 
         fresh.setNext(current.getNext());
         current.setNext(fresh);
-        size++;
+        this.size++;
     }
 
-    public void appendEnd(String value) {
+    public void appendLast(E value) {
         if (this.head == null) {
-            this.appendStart(value);
+            this.appendFirst(value);
             return;
         }
 
-        Node<String> fresh = new Node<>(value, null);
-        Node<String> current = this.head;
+        Node<E> fresh = new Node<>(value, null);
+        Node<E> current = this.head;
         while (current.getNext() != null) {
             current = current.getNext();
         }
         current.setNext(fresh);
-        size++;
+        this.size++;
     }
 
-    public String removeAt(int index) {
+    public void insertOrdered(E value) throws ClassCastException {
+        if (this.isEmpty()) {
+            this.appendFirst(value);
+            return;
+        }
+
+        Node<E> fresh = new Node<E>(value, null);
+        Node<E> current = this.head;
+        Node<E> before = this.head;
+
+        while (current.getNext() != null) {
+            try {
+                Integer number = (Integer) fresh.getValue();
+                Integer currentNumber = (Integer) current.getValue();
+                if (currentNumber > number) {
+                    fresh.setNext(current);
+                    before.setNext(fresh);
+                    this.size++;
+                    return;
+                }
+                before = current;
+                current = current.getNext();
+            } catch (Error e) {
+                System.out.println("This method cannot be used into a non-Integer list.");
+                throw e;
+            }
+        }
+    }
+
+    public E removeAt(int index) {
         if (this.isEmpty()) {
             System.out.println("Empty List.");
             return null;
-        } else if (index < 0 || index > size) {
+        } else if (index < 0 || index > this.size) {
             System.out.println("Index out of bounds.");
             return null;
         }
 
-        Node<String> removed;
+        Node<E> removed;
         if (index == 0) {
             removed = this.head;
             head = removed.getNext();
         } else {
-            Node<String> current = this.head;
+            Node<E> current = this.head;
             for (int i = 0; i < index; i++) {
                 current = current.getNext();
             }
             removed = current.getNext();
             current.setNext(removed.getNext());
         }
-        size--;
+        this.size--;
         return removed.getValue();
     }
 
-    public void removeIfHas(String value) {
+    public void removeIfHas(E value) {
         if (this.isEmpty()) {
             System.out.println("Empty List.");
             return;
         }
 
         int count = 0;
-        Node<String> current = this.head;
-        Node<String> before = this.head;
+        Node<E> current = this.head;
+        Node<E> before = this.head;
         for (int i = 0; i < this.size; i++) {
-            String str = current.getValue();
-            if (str.toString().contains(value.toString())) {
+            String str = current.getValue().toString();
+            if (str.contains(value.toString())) {
                 count++;
                 if (current.equals(this.head)) {
                     this.head = this.head.getNext();
@@ -103,13 +129,12 @@ public class LinkedList<String> implements LinkedListProtocol<String> {
                 } else {
                     before.setNext(current.getNext());
                 }
-                current = current.getNext();
             } else {
                 before = current;
-                current = current.getNext();
             }
+            current = current.getNext();
         }
-        size = size - count;
+        this.size = this.size - count;
     }
 
 
@@ -126,9 +151,9 @@ public class LinkedList<String> implements LinkedListProtocol<String> {
         if (this.isEmpty()) {
             System.out.println("Empty List.");
         } else {
-            Node<String> current = this.head;
+            Node<E> current = this.head;
             System.out.print("[");
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < this.size; i++) {
                 System.out.print(current.getValue());
                 if (current.getNext() != null) {
                     System.out.print(", ");
