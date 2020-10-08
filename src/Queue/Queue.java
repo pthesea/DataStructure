@@ -1,6 +1,6 @@
 package Queue;
 
-public class Queue implements QueueBase {
+public class Queue implements QueueProtocol {
     public Integer[] queue = new Integer[5];
     public int pointer;
 
@@ -9,7 +9,7 @@ public class Queue implements QueueBase {
     }
 
     public void enqueue(Integer value) {
-        if (full()) {
+        if (isFull()) {
             System.out.println("Full Queue");
             return;
         }
@@ -18,7 +18,7 @@ public class Queue implements QueueBase {
     }
 
     public Integer dequeue() {
-        if (empty()) {
+        if (isEmpty()) {
             System.out.println("Empty Queue.");
             return null;
         }
@@ -31,16 +31,16 @@ public class Queue implements QueueBase {
         return value;
     }
 
-    public boolean full() {
+    public boolean isFull() {
         return pointer == (queue.length - 1);
     }
 
-    public boolean empty() {
+    public boolean isEmpty() {
         return pointer == -1;
     }
 
     public void print() {
-        if (empty()) {
+        if (isEmpty()) {
             System.out.println("Empty Queue.");
         }
 

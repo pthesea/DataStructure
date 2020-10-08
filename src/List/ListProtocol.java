@@ -1,6 +1,6 @@
 package List;
 
-public interface ListBase<E> {
+public interface ListProtocol<E> {
 
     public abstract void set(int index, E e);
 

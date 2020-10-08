@@ -1,6 +1,6 @@
 package List;
 
-public class List implements ListBase<Object> {
+public class List implements ListProtocol<Object> {
     private Object[] list = new Object[5];
     private int pointer;
 
