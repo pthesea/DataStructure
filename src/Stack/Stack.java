@@ -1,6 +1,6 @@
 package Stack;
 
-public class Stack implements StackBase {
+public class Stack implements StackProtocol {
     private Integer[] stack = new Integer[5];
     private int pointer;
 
@@ -9,7 +9,7 @@ public class Stack implements StackBase {
     }
 
     public void push(Integer value) {
-        if (full()) {
+        if (isFull()) {
             System.out.println("Full stack.");
             return;
         }
@@ -23,7 +23,7 @@ public class Stack implements StackBase {
     }
 
     public Integer pop() {
-        if (empty()) {
+        if (isEmpty()) {
             System.out.println("Empty Stack.");
             return null;
         }
@@ -38,14 +38,14 @@ public class Stack implements StackBase {
 
     }
 
-    public boolean full() {
+    public boolean isFull() {
         if (pointer == stack.length - 1) {
             return true;
         }
         return false;
     }
 
-    public boolean empty() {
+    public boolean isEmpty() {
         if (pointer == -1) {
             return true;
         }
@@ -53,7 +53,7 @@ public class Stack implements StackBase {
     }
 
     public void print() {
-        if (empty()) {
+        if (isEmpty()) {
             System.out.println("Empty Stack.");
         }
 

@@ -1,11 +1,11 @@
 package Queue;
 
-public interface QueueBase {
+public interface QueueProtocol {
     public void enqueue(Integer value);
     public Integer dequeue();
 
-    public boolean full();
-    public boolean empty();
+    public boolean isFull();
+    public boolean isEmpty();
 
     public void print();
 }

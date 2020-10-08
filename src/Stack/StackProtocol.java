@@ -1,11 +1,10 @@
 package Stack;
 
-public interface StackBase {
+public interface StackProtocol {
     public void push(Integer value);
     public Integer pop();
 
-    public boolean full();
-    public boolean empty();
-
+    public boolean isFull();
+    public boolean isEmpty();
     public void print();
 }
